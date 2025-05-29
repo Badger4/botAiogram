@@ -46,7 +46,7 @@ class PartCreating(StatesGroup):
     filling = State()
     three_mf = State()
 
-# РЕГИСТРАЦИЯ ---------
+# РЕГІСТРАЦІЯ ---------
 
 @main_router.message(~Registered(), filters.CommandStart(),
                      filters.StateFilter(None))
@@ -112,14 +112,14 @@ async def decline_query(query: types.CallbackQuery, state: FSMContext):
 
 # --------------------------
 
-# ОСНОВНОЕ МЕНЮ
+# ОСНОВНЕ МЕНЮ
 
 @main_router.message(StateFilter(None), Registered())
 async def send_main_menu(message: types.Message, state: FSMContext):
     await state.set_state(MainStates.in_main_menu)
     await message.answer("Головне меню!", reply_markup=MainMenuMarkUp.as_markup())
 
-# 3Д детали --------
+# 3Д --------
 @main_router.message(Review3d(), StateFilter(MainStates.in_main_menu), F.text == MainMenuMarkUp.modules3d.value)
 async def open_3d_model(message: types.Message, state: FSMContext):
     await state.set_state(MainStates.in_parts3d)
